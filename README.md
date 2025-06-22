@@ -5,7 +5,7 @@
 
 Welcome to the **Evangadi Forum**! 🚀
 
-A modern, full-stack Q&A platform built with React, Node.js, and MySQL, designed for vibrant community discussions, knowledge sharing, and collaborative learning. This project is inspired by the original [Evangadi-Forum repository](https://github.com/mihret7/Evangadi-Forum) and has been deeply enhanced for security, accessibility, and a beautiful user experience.
+A modern, full-stack Q&A platform built with React, Node.js, and PostgreSQL, designed for vibrant community discussions, knowledge sharing, and collaborative learning. This project is inspired by the original [Evangadi-Forum repository](https://github.com/mihret7/Evangadi-Forum) and has been deeply enhanced for security, accessibility, and a beautiful user experience.
 
 ---
 
