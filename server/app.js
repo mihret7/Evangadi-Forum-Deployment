@@ -19,7 +19,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-console.log("test");
+
 // import auth middleware
 const authMiddleware = require("./middleware/authMiddleware");
 
