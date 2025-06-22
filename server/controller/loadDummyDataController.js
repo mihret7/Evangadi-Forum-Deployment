@@ -15,5 +15,4 @@ async function insertDummyData() {
   }
 }
 
-module.exports = {
-  insertDummyData, };
+module.exports = {insertDummyData, };

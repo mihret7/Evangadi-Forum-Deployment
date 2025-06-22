@@ -1,8 +1,8 @@
 const express = require("express");
-const {  } = require("../controller/loadDummyDataController");
+const { insertDummyData } = require("../controller/loadDummyDataController");
 
-const loginRouter = express.Router();
+const insertDummyDataRouter = express.Router();
 
-loginRouter.post("/login", login);
+insertDummyDataRouter.post("/insertDummyData", insertDummyData);
 
-module.exports = loginRouter;
+module.exports = insertDummyDataRouter;
