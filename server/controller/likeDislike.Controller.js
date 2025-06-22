@@ -17,23 +17,29 @@ async function handleVote(req, res, type, isLike) {
   }
 
   try {
-    await dbconnection.query(
-      `INSERT INTO likes_dislikes (user_id, ${typeIdColumn}, is_like) VALUES (?, ?, ?)
-       ON DUPLICATE KEY UPDATE is_like = ?`,
-      [userId, id, isLike, isLike]
-    );
+    // Upsert vote
+    const insertQuery = `
+      INSERT INTO likes_dislikes (user_id, ${typeIdColumn}, is_like)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_id, ${typeIdColumn})
+      DO UPDATE SET is_like = EXCLUDED.is_like;
+    `;
+    await dbconnection.query(insertQuery, [userId, id, isLike]);
 
-    const [counts] = await dbconnection.query(
-      `SELECT
-        SUM(CASE WHEN is_like = 1 THEN 1 ELSE 0 END) as likes,
-        SUM(CASE WHEN is_like = 0 THEN 1 ELSE 0 END) as dislikes
-       FROM likes_dislikes WHERE ${typeIdColumn} = ?`,
-      [id]
-    );
+    // Get updated counts
+    const countQuery = `
+      SELECT
+        SUM(CASE WHEN is_like = true THEN 1 ELSE 0 END) AS likes,
+        SUM(CASE WHEN is_like = false THEN 1 ELSE 0 END) AS dislikes
+      FROM likes_dislikes
+      WHERE ${typeIdColumn} = $1
+    `;
+    const countResult = await dbconnection.query(countQuery, [id]);
+    const counts = countResult.rows[0];
 
     res.status(StatusCodes.OK).json({
-      likes: counts[0]?.likes || 0,
-      dislikes: counts[0]?.dislikes || 0,
+      likes: parseInt(counts.likes, 10) || 0,
+      dislikes: parseInt(counts.dislikes, 10) || 0,
     });
   } catch (err) {
     console.error(`Error while voting on ${type}:`, err);
@@ -43,9 +49,9 @@ async function handleVote(req, res, type, isLike) {
   }
 }
 
-const likeQuestion = (req, res) => handleVote(req, res, "question", 1);
-const dislikeQuestion = (req, res) => handleVote(req, res, "question", 0);
-const likeAnswer = (req, res) => handleVote(req, res, "answer", 1);
-const dislikeAnswer = (req, res) => handleVote(req, res, "answer", 0);
+const likeQuestion = (req, res) => handleVote(req, res, "question", true);
+const dislikeQuestion = (req, res) => handleVote(req, res, "question", false);
+const likeAnswer = (req, res) => handleVote(req, res, "answer", true);
+const dislikeAnswer = (req, res) => handleVote(req, res, "answer", false);
 
 module.exports = { likeQuestion, dislikeQuestion, likeAnswer, dislikeAnswer };
