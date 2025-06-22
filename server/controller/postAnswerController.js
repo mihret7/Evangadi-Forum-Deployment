@@ -37,11 +37,11 @@ async function postAnswer(req, res) {
 
   try {
     // Check if question exists
-    const [question] = await dbconnection.query(
-      "SELECT question_id FROM question WHERE question_id = ?",
+    const questionResult = await dbconnection.query(
+      "SELECT question_id FROM question WHERE question_id = $1",
       [questionIdNum]
     );
-    if (question.length === 0) {
+    if (questionResult.rows.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "Question not found.",
@@ -49,60 +49,58 @@ async function postAnswer(req, res) {
     }
 
     // Check if user exists
-    const [user] = await dbconnection.query(
-      "SELECT user_id FROM registration WHERE user_id = ?",
+    const userResult = await dbconnection.query(
+      "SELECT user_id FROM registration WHERE user_id = $1",
       [userIdNum]
     );
-    if (user.length === 0) {
+    if (userResult.rows.length === 0) {
       return res.status(StatusCodes.NOT_FOUND).json({
         success: false,
         message: "User not found.",
       });
     }
 
-
-
     // Insert answer
     const insertQuery = `
       INSERT INTO answer (answer, user_id, question_id, created_at)
-      VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+      VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
+      RETURNING answer_id
     `;
-    const [result] = await dbconnection.query(insertQuery, [
+    const insertResult = await dbconnection.query(insertQuery, [
       sanitizedAnswer,
       userIdNum,
       questionIdNum,
     ]);
 
-    
+    const answerId = insertResult.rows[0].answer_id;
+
     // Fetch email of the user who asked the question
-    const [questionRows] = await dbconnection.query(
+    const questionEmailResult = await dbconnection.query(
       `SELECT r.user_email 
        FROM question q 
        JOIN registration r ON q.user_id = r.user_id 
-       WHERE q.question_id = ?`,
-      [question_id]
+       WHERE q.question_id = $1`,
+      [questionIdNum]
     );
 
-    if (questionRows.length > 0) {
-      const email = questionRows[0].user_email;
-      await sendAnswerNotification(email, question_id);
+    if (questionEmailResult.rows.length > 0) {
+      const email = questionEmailResult.rows[0].user_email;
+      await sendAnswerNotification(email, questionIdNum);
     }
 
     res.status(StatusCodes.CREATED).json({
       success: true,
       message: "Answer posted successfully.",
-      answerId: result.insertId,
+      answerId,
     });
   } catch (error) {
     console.error("Error posting answer:", {
       message: error.message,
       stack: error.stack,
-      sqlMessage: error.sqlMessage || null,
-      sql: error.sql || null,
     });
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
-      message: error.sqlMessage || "Server error while posting answer.",
+      message: "Server error while posting answer.",
     });
   }
 }

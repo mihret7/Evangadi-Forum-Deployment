@@ -26,18 +26,26 @@ async function postQuestion(req, res) {
     const sanitizedDescription = xss(description);
     const sanitizedTag = tag ? xss(tag) : null;
 
-    // Generate a unique post_id before insert
+    // Generate a unique post_id before insert (optional for PostgreSQL, can use SERIAL or UUID instead)
     const postId = Math.floor(Math.random() * 2147483647) + 1;
 
-    // Insert question into database
-    const [result] = await dbconnection.query(
-      "INSERT INTO question (question_title, question_description, tag, user_id, post_id) VALUES (?, ?, ?, ?, ?)",
-      [sanitizedTitle, sanitizedDescription, sanitizedTag, userId, postId]
-    );
+    // Insert question into database with RETURNING to get inserted ID
+    const insertQuery = `
+      INSERT INTO question (question_title, question_description, tag, user_id, post_id)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING question_id
+    `;
+    const result = await dbconnection.query(insertQuery, [
+      sanitizedTitle,
+      sanitizedDescription,
+      sanitizedTag,
+      userId,
+      postId,
+    ]);
 
     res.status(StatusCodes.CREATED).json({
       message: "Question posted successfully",
-      questionId: result.insertId,
+      questionId: result.rows[0].question_id,
     });
   } catch (error) {
     console.error("Error posting question:", error);

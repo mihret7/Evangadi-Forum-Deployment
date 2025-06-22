@@ -30,9 +30,9 @@ const fetchUserProfile = async (userId) => {
       COALESCE(p.last_name, '') as last_name
     FROM registration r
     LEFT JOIN profile p ON r.user_id = p.user_id
-    WHERE r.user_id = ?;
+    WHERE r.user_id = $1;
   `;
-  const [rows] = await db.execute(query, [userId]);
+  const { rows } = await db.query(query, [userId]);
   return rows[0];
 };
 
@@ -62,28 +62,28 @@ exports.updateProfile = async (req, res) => {
   const { user_id } = req.params;
   const { first_name, last_name, user_name } = req.body;
 
-  const client = await db.getConnection(); // to use transactions
+  const client = await db.connect(); // to use transactions
 
   try {
-    await client.beginTransaction();
+    await client.query("BEGIN");
 
     // Update registration table
     await client.query(
-      "UPDATE registration SET user_name = ? WHERE user_id = ?",
+      "UPDATE registration SET user_name = $1 WHERE user_id = $2",
       [user_name, user_id]
     );
 
-    // Upsert profile table
+    // Upsert profile table using PostgreSQL ON CONFLICT
     const upsertProfileQuery = `
       INSERT INTO profile (user_id, first_name, last_name)
-      VALUES (?, ?, ?)
-      ON DUPLICATE KEY UPDATE 
-        first_name = VALUES(first_name), 
-        last_name = VALUES(last_name);
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_id) DO UPDATE SET
+        first_name = EXCLUDED.first_name,
+        last_name = EXCLUDED.last_name;
     `;
     await client.query(upsertProfileQuery, [user_id, first_name, last_name]);
 
-    await client.commit();
+    await client.query("COMMIT");
 
     // Fetch the newly updated profile to return
     const updatedProfile = await fetchUserProfile(user_id);
@@ -98,7 +98,7 @@ exports.updateProfile = async (req, res) => {
       },
     });
   } catch (err) {
-    await client.rollback();
+    await client.query("ROLLBACK");
     handleError(res, "Update failed.", err);
   } finally {
     client.release(); // Release the client back to the pool
@@ -111,8 +111,8 @@ exports.updateProfile = async (req, res) => {
 exports.deleteProfile = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const result = await db.execute(
-      "DELETE FROM registration WHERE user_id = ?",
+    const result = await db.query(
+      "DELETE FROM registration WHERE user_id = $1",
       [user_id]
     );
 
