@@ -1,11 +1,11 @@
 const dbconnection = require("../db/db.Config");
-const dummy_data = require("../db/dummy_data.sql");
 const fs = require("fs");
-
+const path = require("path");
 
 async function insertDummyData() {
-  const sql = fs.readFileSync(dummy_data, "utf8");
   try {
+    const sqlFilePath = path.join(__dirname, "../db/dummy_data.sql");
+    const sql = fs.readFileSync(sqlFilePath, "utf8");
     await dbconnection.query(sql);
     console.log("Dummy data inserted successfully");
   } catch (err) {
@@ -15,4 +15,4 @@ async function insertDummyData() {
   }
 }
 
-module.exports = {insertDummyData, };
+module.exports = { insertDummyData };
