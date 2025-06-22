@@ -18,7 +18,7 @@ A modern, full-stack Q&A platform built with React, Node.js, and PostgreSQL, des
 - **Pagination**: Fast, server-side pagination for questions and answers.
 - **Responsive Design**: Glassmorphic, mobile-first UI with smooth animations and accessibility in mind.
 - **Chatbot**: Friendly, animated chatbot for instant help and onboarding.
-- **Robust Backend**: Node.js/Express API with MySQL, input sanitization, and modular controllers.
+- **Robust Backend**: Node.js/Express API with PostgreSQL, input sanitization, and modular controllers.
 - **Error Handling**: User-friendly toasts and loading spinners for all major flows.
 
 ---
@@ -102,7 +102,7 @@ Evangadi-Forum/
 - `client/src/Pages/Home/Home.jsx` — Home page logic, search, sort, pagination, and question listing.
 - `client/src/Components/VoteButtons/VoteButtons.jsx` — Unified voting UI for questions and answers.
 - `server/controller/` — All backend controllers, including XSS sanitization and pagination.
-- `server/db/db.Config.js` — MySQL connection config.
+- `server/db/db.Config.js` — PostgreSQL connection config.
 
 ---
 
