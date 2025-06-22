@@ -1,15 +1,8 @@
-const mysql = require("mysql2/promise");
+const dbconnection = require("./db/db.Config");
 
 async function initDB(req, res) {
-  let rootConn;
+  let rootConn = dbconnection;
   try {
-    rootConn = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      // password: "", // XAMPP default root password is empty string
-      password: "root", // for MAMP default root password is root
-    });
-
     // Create database
     await rootConn.query("CREATE DATABASE IF NOT EXISTS evangadi_forum");
 
@@ -32,8 +25,3 @@ async function initDB(req, res) {
 }
 
 module.exports = { initDB };
-
-
-
-
-
