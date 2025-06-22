@@ -27,7 +27,7 @@ const authMiddleware = require("./middleware/authMiddleware");
 // import admin routes
 const initDB_Router = require("./routes/initDB_route");
 const createTableRouter = require("./routes/createTablesRoute");
-const loadDummyDataRouter = require("./routes/loadDummyDataRoute");
+// const loadDummyDataRouter = require("./routes/loadDummyDataRoute");
 // import user routes
 const registerRouter = require("./routes/registerRoute");
 const loginRouter = require("./routes/loginRoute");
@@ -46,7 +46,7 @@ const updateAnswerRouter = require("./routes/updateAnswerRoute");
 // admin routes middleware
 app.use("/api/admin", initDB_Router);
 app.use("/api/admin", createTableRouter);
-app.use("/api/admin", loadDummyDataRouter);
+// app.use("/api/admin", loadDummyDataRouter);
 
 // user routes middleware
 app.use("/api/user", registerRouter);
