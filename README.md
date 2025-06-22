@@ -1,7 +1,7 @@
 # Evangadi Forum
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://evangadi-forum-beta7.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://evangadi-forum-mihret.vercel.app/)
 
 Welcome to the **Evangadi Forum**! 🚀
 
