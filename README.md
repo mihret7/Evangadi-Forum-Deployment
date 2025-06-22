@@ -52,7 +52,7 @@ Evangadi-Forum/
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Vite, CSS Modules, React Router, React Icons, React Spinners, Toastify
-- **Backend**: Node.js, Express, MySQL, xss (sanitization), JWT
+- **Backend**: Node.js, Express, PostgreSQL, xss (sanitization), JWT
 - **Other**: Axios, dotenv, CORS, bcrypt, modern CSS
 
 ---
@@ -94,38 +94,6 @@ Evangadi-Forum/
 - Fully responsive layouts for mobile, tablet, and desktop.
 - Glassmorphic cards, pill-shaped search bar, and modern icons.
 - Smooth animations for chatbot, loading, and transitions.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/mihret7/Evangadi-Forum.git
-cd Evangadi-Forum
-```
-
-### 2. Setup the Backend
-
-```bash
-cd server
-npm install
-# Configure your .env and MySQL connection in db.Config.js
-node app.js
-```
-
-### 3. Setup the Frontend
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-### 4. Open in Browser
-
-Visit [http://localhost:4321](http://localhost:5173) (or the port shown in your terminal).
 
 ---
 
