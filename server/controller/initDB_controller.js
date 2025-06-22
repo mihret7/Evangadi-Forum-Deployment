@@ -1,4 +1,4 @@
-const dbconnection = require("./db/db.Config");
+const dbconnection = require("../db/db.Config.js");
 
 async function initDB(req, res) {
   let rootConn = dbconnection;
