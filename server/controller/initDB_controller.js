@@ -7,7 +7,7 @@ async function initDB(req, res) {
       host: "localhost",
       user: "root",
       // password: "", // XAMPP default root password is empty string
-      password: "mihret", // for MAMP default root password is root
+      password: "root", // for MAMP default root password is root
     });
 
     // Create database
