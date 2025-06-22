@@ -1,0 +1,8 @@
+*.txt
+node_modules
+.packages
+.DS_Store
+.env
+
+# Ignore the View folder
+/View/
