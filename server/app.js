@@ -69,7 +69,7 @@ async function connectDB() {
     await dbconnection.execute("SELECT 'test'");
     console.log("Database connection successful");
   } catch (error) {
-    console.error("Error connecting to the database:", error.message);
+    console.error("Error connecting to the database:", error);
   }
 }
 
