@@ -1,5 +1,5 @@
 const dbconnection = require("../db/db.Config");
-const dummy_data = require("../db/dummy_data.js");
+const dummy_data = require("../db/dummy_data.sql");
 const fs = require("fs");
 
 
