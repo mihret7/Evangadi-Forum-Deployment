@@ -23,6 +23,9 @@ A modern, full-stack Q&A platform built with React, Node.js, and MySQL, designed
 
 ---
 
+**Live Demo:** [https://evangadi-forum-mihret.vercel.app](https://evangadi-forum-mihret.vercel.app)
+
+
 ## 📂 Project Structure
 
 ```
