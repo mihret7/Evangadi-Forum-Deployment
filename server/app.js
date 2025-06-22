@@ -66,6 +66,7 @@ app.use("/api/profile", authMiddleware, profileRoutes);
 // Start server and test database connection
 async function connectDB() {
   try {
+    const client = await pool.connect();
     await client.query("SELECT NOW()"); // test query
     console.log("Database connection successful");
   } catch (error) {
