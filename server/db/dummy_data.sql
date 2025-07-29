@@ -123,7 +123,7 @@ INSERT INTO answer (answer, user_id, question_id) VALUES
 ('Sanitize inputs to prevent XSS/SQLi, use CSRF tokens, and keep dependencies updated.', 23, 22),
 ('While direct Amharic resources are growing, many English tutorials have Amharic-speaking communities around them. Check YouTube and local tech groups.', 24, 23),
 ('Look for "good first issue" tags on GitHub. Read contribution guidelines, fork the repo, create a branch, and submit a PR with clear descriptions.', 25, 24),
-('Big O describes the upper bound of an algorithm\'s runtime or space complexity as input size grows. O(n) is linear, O(1) is constant.', 26, 25),
+('Big O describes the upper bound of an algorithms runtime or space complexity as input size grows. O(n) is linear, O(1) is constant.', 26, 25),
 ('DRY: Don''t Repeat Yourself. KISS: Keep It Simple, Stupid. SOLID principles help create maintainable object-oriented designs.', 27, 26),
 ('Use feature branches, write descriptive commit messages (e.g., "feat: add user login"), and rebase or merge carefully.', 28, 27),
 ('PWAs offer native-app-like experiences (offline support, push notifications) in the browser. Use service workers and a manifest file.', 29, 28),
