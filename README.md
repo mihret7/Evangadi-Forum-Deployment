@@ -1,11 +1,11 @@
 # Evangadi Forum
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://evangadi-forum-beta7.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/demo-online-brightgreen)](https://evangadi-forum-mihret.vercel.app/)
 
 Welcome to the **Evangadi Forum**! 🚀
 
-A modern, full-stack Q&A platform built with React, Node.js, and MySQL, designed for vibrant community discussions, knowledge sharing, and collaborative learning. This project is inspired by the original [Evangadi-Forum repository](https://github.com/mihret7/Evangadi-Forum) and has been deeply enhanced for security, accessibility, and a beautiful user experience.
+A modern, full-stack Q&A platform built with React, Node.js, and PostgreSQL, designed for vibrant community discussions, knowledge sharing, and collaborative learning. This project is inspired by the original [Evangadi-Forum repository](https://github.com/mihret7/Evangadi-Forum) and has been deeply enhanced for security, accessibility, and a beautiful user experience.
 
 ---
 
@@ -18,10 +18,13 @@ A modern, full-stack Q&A platform built with React, Node.js, and MySQL, designed
 - **Pagination**: Fast, server-side pagination for questions and answers.
 - **Responsive Design**: Glassmorphic, mobile-first UI with smooth animations and accessibility in mind.
 - **Chatbot**: Friendly, animated chatbot for instant help and onboarding.
-- **Robust Backend**: Node.js/Express API with MySQL, input sanitization, and modular controllers.
+- **Robust Backend**: Node.js/Express API with PostgreSQL, input sanitization, and modular controllers.
 - **Error Handling**: User-friendly toasts and loading spinners for all major flows.
 
 ---
+
+**Live Demo:** [https://evangadi-forum-mihret.vercel.app](https://evangadi-forum-mihret.vercel.app)
+
 
 ## 📂 Project Structure
 
@@ -49,7 +52,7 @@ Evangadi-Forum/
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Vite, CSS Modules, React Router, React Icons, React Spinners, Toastify
-- **Backend**: Node.js, Express, MySQL, xss (sanitization), JWT
+- **Backend**: Node.js, Express, PostgreSQL, xss (sanitization), JWT
 - **Other**: Axios, dotenv, CORS, bcrypt, modern CSS
 
 ---
@@ -94,44 +97,12 @@ Evangadi-Forum/
 
 ---
 
-## 🚀 Getting Started
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/mihret7/Evangadi-Forum.git
-cd Evangadi-Forum
-```
-
-### 2. Setup the Backend
-
-```bash
-cd server
-npm install
-# Configure your .env and MySQL connection in db.Config.js
-node app.js
-```
-
-### 3. Setup the Frontend
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-### 4. Open in Browser
-
-Visit [http://localhost:4321](http://localhost:5173) (or the port shown in your terminal).
-
----
-
 ## 🧩 Notable Files & Folders
 
 - `client/src/Pages/Home/Home.jsx` — Home page logic, search, sort, pagination, and question listing.
 - `client/src/Components/VoteButtons/VoteButtons.jsx` — Unified voting UI for questions and answers.
 - `server/controller/` — All backend controllers, including XSS sanitization and pagination.
-- `server/db/db.Config.js` — MySQL connection config.
+- `server/db/db.Config.js` — PostgreSQL connection config.
 
 ---
 
